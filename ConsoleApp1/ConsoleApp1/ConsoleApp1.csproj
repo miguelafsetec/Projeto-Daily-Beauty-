@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Operations\EstoqueOperations.cs" />
     <Compile Include="Models\Produto.cs" />
+    <Compile Include="Operations\fornecedores.cs" />
     <Compile Include="Operations\RHOperations.cs" />
     <Compile Include="Models\Funcionario.cs" />
     <Compile Include="Database\DatabaseConnection.cs" />

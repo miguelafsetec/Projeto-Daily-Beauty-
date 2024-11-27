@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using LEGAL2.Database;
 using LEGAL2.Operations;
 using LEGAL2.Models;
+using static ConsoleApp1.Operations.fornecedores;
+using static ConsoleApp1.Operations.fornecedores.FornecedorOperations;
 
 namespace LEGAL2
 {
@@ -11,7 +13,7 @@ namespace LEGAL2
     {
         static void Main(string[] args)
         {
-            string connectionString = "server=localhost;uid=root;pwd=emigab;database=db_Daily";
+            string connectionString = "server=localhost;uid=root;pwd=1234;database=Projeto";
             DatabaseConnection dbConnection = new DatabaseConnection(connectionString);
 
             try
@@ -21,6 +23,7 @@ namespace LEGAL2
 
                 RHOperations rhOps = new RHOperations(dbConnection);
                 EstoqueOperations estoqueOps = new EstoqueOperations(dbConnection);
+                FornecedorOperations fornecedorOps = new FornecedorOperations(dbConnection);
 
                 while (true)
                 {
@@ -32,6 +35,8 @@ namespace LEGAL2
                     Console.WriteLine("4. Listar Produtos");
                     Console.WriteLine("5. Adicionar Produto");
                     Console.WriteLine("6. Remover Produto");
+                    Console.WriteLine("7. Ver Fornecedores");
+                    Console.WriteLine("8. Adicionar Fornecedor");
                     Console.WriteLine("0. Sair");
                     Console.Write("Escolha uma opção: ");
 
@@ -57,6 +62,12 @@ namespace LEGAL2
                         case "6":
                             RemoverProduto(estoqueOps);
                             break;
+                        case "7": 
+                            ListarFornecedores(fornecedorOps);
+                            break;
+                        case "8":
+                            AdicionarFornecedor(fornecedorOps); 
+                            break;
                         case "0":
                             Console.WriteLine("Saindo do sistema...");
                             return;
@@ -79,6 +90,7 @@ namespace LEGAL2
                 {
                     Console.WriteLine("ERRO GERADO: " + ex.Number);
                     Console.WriteLine("Entre em contato com o administrador.");
+                    Console.ReadKey();
                 }
             }
             finally
@@ -165,5 +177,44 @@ namespace LEGAL2
             int idProduto = int.Parse(Console.ReadLine());
             estoqueOps.RemoverProduto(idProduto);
         }
+        static void ListarFornecedores(FornecedorOperations fornecedorOps)
+        {
+            List<Fornecedor> fornecedores = fornecedorOps.GetFornecedores();
+            foreach (var fornecedor in fornecedores)
+            {
+                Console.WriteLine($"ID: {fornecedor.Id}, Nome: {fornecedor.Nome}, Endereço: {fornecedor.Endereco}, CNPJ: {fornecedor.CNPJ}, Email: {fornecedor.Email}, Telefone: {fornecedor.Telefone}, Anos de Contrato: {fornecedor.QuantosAnosDeContrato}");
+            }
+        }
+
+        static void AdicionarFornecedor(FornecedorOperations fornecedorOps)
+        {
+            Console.Write("Nome: ");
+            string nome = Console.ReadLine();
+            Console.Write("Endereço: ");
+            string endereco = Console.ReadLine();
+            Console.Write("CNPJ: ");
+            string cnpj = Console.ReadLine();
+            Console.Write("Email: ");
+            string email = Console.ReadLine();
+            Console.Write("Telefone: ");
+            string telefone = Console.ReadLine();
+            Console.Write("Quantos Anos de Contrato: ");
+            int anosDeContrato = Convert.ToInt32(Console.ReadLine());
+
+            Fornecedor fornecedor = new Fornecedor
+            {
+                Nome = nome,
+                Endereco = endereco,
+                CNPJ = cnpj,
+                Email = email,
+                Telefone = telefone,
+                QuantosAnosDeContrato = anosDeContrato
+            };
+
+            fornecedorOps.AdicionarFornecedor(fornecedor);
+        }
     }
 }
+
+    
+
