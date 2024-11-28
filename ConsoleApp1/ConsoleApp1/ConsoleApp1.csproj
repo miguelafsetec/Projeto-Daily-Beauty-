@@ -47,11 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Operations\EstoqueOperations.cs" />
+    <Compile Include="Models\Produto.cs" />
+    <Compile Include="Operations\fornecedores.cs" />
+    <Compile Include="Operations\RHOperations.cs" />
+    <Compile Include="Models\Funcionario.cs" />
+    <Compile Include="Database\DatabaseConnection.cs" />
+    <Compile Include="Main\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
